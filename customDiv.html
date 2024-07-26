@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #border{
+            border: 2px solid black;
+            width: max-content;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Div</h1>
+    <div id="border">
+        <h4>Enter Height</h4>
+        <input type="number" id="height" placeholder="Enter Height">
+        <h4>Enter Width</h4>
+        <input type="number" id="width" placeholder="Enter Width">
+        <h4>Enter Color</h4>
+        <input type="color" id="color" style="width: 170px;">
+        <br><br>
+        <input type="text"  id="description" placeholder="Enter Description" style="height: 50px;">
+        <br><br>
+        <Button onclick="onClick()">Create</Button>
+    </div>
+    <br><br>
+    <div class="divClass" id="div">
+        <p id="p"></p>
+    </div>
+    <script>
+        function onClick(){
+            height = document.getElementById('div').style.height = document.getElementById('height').value + "px"
+            width = document.getElementById('div').style.width = document.getElementById('width').value + "px"
+            color = document.getElementById('div').style.backgroundColor = document.getElementById('color').value
+            desscription = document.getElementById('p').innerHTML = document.getElementById('description').value
+        }
+    </script>
+</body>
+</html>
