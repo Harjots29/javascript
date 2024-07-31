@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #border{
+            border:2px solid black;
+            width:max-content;
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="border">
+    <form action="./afterValidation.html" onsubmit="return registerSubmit()">
+        <label for="name"></label> <br>
+        <input type="text" placeholder="Enter Name" id="name"> <br><br>
+
+        <label for="email"></label> <br>
+        <input type="email" placeholder="Enter email" id="email"> <br><br>
+
+        <label for="contact"></label> <br>
+        <input type="number" placeholder="Enter contact" id="contact"> <br><br>
+    </div>
+    <br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        function registerSubmit(){
+            var name = document.getElementById('name').value
+
+            var contact = document.getElementById('contact').value
+
+            var email = document.getElementById('email').value
+
+            if( name != "" && email != "" && contact != "" ){
+                document.getElementById('message').innerHTML= ""
+                return true
+
+            }
+            else{
+                document.getElementById('message').innerHTML= "Please Fill the form"
+                return false
+            }
+        }
+    </script>
+</body>
+</html>
