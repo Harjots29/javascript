@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks Calculation</title>
+    <style>
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Marks Calculation</h1>
+        <div class="sub-mark">
+            <label for="subject1">Marks in Physics:</label>
+            <br>
+            <input type="number" id="subject1" class="subject-marks">
+        </div>
+        <div class="sub-mark">
+            <label for="subject2">Marks in Chemistry:</label>
+            <br>
+            <input type="number" id="subject2" class="subject-marks">
+        </div>
+        <div class="sub-mark">
+            <label for="subject3">Marks in Biology:</label>
+            <br>
+            <input type="number" id="subject3" class="subject-marks">
+        </div>
+        <div class="sub-mark">
+            <label for="subject4">Marks in Maths:</label>
+            <br>
+            <input type="number" id="subject4" class="subject-marks">
+        </div>
+        <div class="sub-mark">
+            <label for="subject5">Marks in Englis:</label>
+            <br>
+            <input type="number" id="subject5" class="subject-marks">
+        </div>
+        <button onclick="calculateResult()">Calculate Result</button>
+        <h2>Result</h2>
+        <div class="sub-mark">
+            <label for="totalMarks">Total Marks:</label>
+            <br>
+            <input type="text" id="totalMarks" readonly>
+        </div>
+        <div class="sub-mark">
+            <label for="percentage">Percentage:</label>
+            <br>
+            <input type="text" id="percentage" readonly>
+        </div>
+        <div class="sub-mark">
+            <label for="grade">Grade:</label>
+            <br>
+            <input type="text" id="grade" readonly>
+        </div>
+    </div>
+    <script>
+        function calculateResult() {
+            var marks = [
+                Number(document.getElementById('subject1').value)||0,
+                Number(document.getElementById('subject2').value)||0,
+                Number(document.getElementById('subject3').value)||0,
+                Number(document.getElementById('subject4').value)||0,
+                Number(document.getElementById('subject5').value)||0
+            ];
+            var totalMarks = marks.reduce((a, b) => a + b, 0);
+            var percentage = (totalMarks / (marks.length * 100)) * 100;
+            let grade = '';
+            if (percentage >= 90) {
+                grade = 'A+';
+            } else if (percentage >= 80) {
+                grade = 'A';
+            } else if (percentage >= 65) {
+                grade = 'B';
+            } else if (percentage >= 55) {
+                grade = 'C';
+            } else if (percentage >= 35) {
+                grade = 'D';
+            } else {
+                grade = 'F';
+            }
+            document.getElementById('totalMarks').value = totalMarks;
+            document.getElementById('percentage').value = percentage.toFixed(2) + '%';
+            document.getElementById('grade').value = grade;
+        }
+    </script>
+</body>
+</html>
