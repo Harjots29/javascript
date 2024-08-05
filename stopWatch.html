@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div id="stopwatch">00:00:00</div>
+    <button onclick="startStopwatch()">Start</button>
+    <button onclick="pauseStopwatch()">Pause</button>
+    <button onclick="resetStopwatch()">Reset</button>
+    <script>
+        let startTime = 0;
+        let elapsedTime = 0;
+        let timerInterval;
+
+        function startStopwatch() {
+        startTime = Date.now() - elapsedTime; // Account for paused time
+        timerInterval = setInterval(updateTime, 10); // Update every 10 milliseconds
+        }
+
+        function pauseStopwatch() {
+        clearInterval(timerInterval);
+        elapsedTime = Date.now() - startTime;
+        }
+
+        function resetStopwatch() {
+        clearInterval(timerInterval);
+        startTime = 0;
+        elapsedTime = 0;
+        updateTime(); // Reset the display
+        }
+
+        function updateTime() {
+        const currentTime = Date.now() - startTime;
+        const formattedTime = formatTime(currentTime);
+        document.getElementById("stopwatch").textContent = formattedTime;
+        }
+
+        function formatTime(milliseconds) {
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const seconds = totalSeconds % 60;
+        const minutes = Math.floor(totalSeconds / 60) % 60;
+        const hours = Math.floor(totalSeconds / 3600);
+
+        const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        return formattedTime;
+        }
+
+        function pad(number) {
+        return (number < 10 ? "0" : "") + number;
+        }
+
+        // Initial display
+        updateTime(); 
+    </script>
+</body>
+</html>

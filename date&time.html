@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Current Time is :- </p>
+    <p id="p"></p>
+    <script>
+         setInterval(function(){
+            var d = new Date()
+            var hrs = d.getHours()
+            var min = d.getMinutes()
+            var sec = d.getSeconds()
+            var date=(hrs+":"+min+":"+sec);
+            p = document.getElementById('p').innerHTML = date
+        },1000)
+    </script>
+</body>
+</html>
