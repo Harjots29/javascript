@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket</title>
+</head>
+<body>
+    <div id="player1" style="border-radius: 50%; background-color: green;height: 40px; width: 40px;"></div>
+
+    <h2>Player 1</h2>
+    <button id="btn1" onclick="playGame(1)">Hit</button>
+    <p id="player1-score">Score: 0</p>
+
+    <div id="player2" style="border-radius: 50%; background-color: red;height: 40px; width: 40px;"></div>
+    <h2>Player 2</h2>
+    <button id="btn2" onclick="playGame(2)">Hit</button>
+    <p id="player2-score">Score: 0</p>
+
+    <h2 id="result"></h2>
+
+    <script>
+        var player1Score = 0;
+        var player2Score = 0;
+        var turn = 0;
+        var maxTurns = 6;
+
+        function playGame(player) {
+            var randomNum = Math.floor(Math.random() * 9) + 1;            
+            if (player === 1) {
+                document.getElementById('player1').style.backgroundColor = 'red'
+                document.getElementById('player2').style.backgroundColor = 'green'
+                document.getElementById('btn1').disabled = true
+                document.getElementById('btn2').disabled = false
+                player1Score += randomNum;
+                document.getElementById('player1-score').innerText = 'Score: ' + player1Score;
+            } else if (player === 2) {
+                document.getElementById('player1').style.backgroundColor = 'green'
+                document.getElementById('player2').style.backgroundColor = 'red'
+                document.getElementById('btn1').disabled = false
+                document.getElementById('btn2').disabled = true
+                player2Score += randomNum;
+                document.getElementById('player2-score').innerText = 'Score: ' + player2Score;
+            }
+            turn++;
+            if (turn === maxTurns * 2) {
+                document.getElementById('btn1').disabled = true
+                document.getElementById('btn2').disabled = true
+                checkWinner();
+            }
+        }
+
+        function checkWinner() {
+            if (player1Score > player2Score) {
+                document.getElementById('result').innerText = 'Player 1 Wins!';
+            } else if (player2Score > player1Score) {
+                document.getElementById('result').innerText = 'Player 2 Wins!';
+            } else {
+                document.getElementById('result').innerText = 'It\'s a Tie!';
+            }
+        }
+    </script>
+</body>
+</html>

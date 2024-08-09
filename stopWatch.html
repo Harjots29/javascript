@@ -3,57 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>StopWatch</title>
 </head>
 <body>
-        <div id="stopwatch">00:00:00</div>
-    <button onclick="startStopwatch()">Start</button>
-    <button onclick="pauseStopwatch()">Pause</button>
-    <button onclick="resetStopwatch()">Reset</button>
+    <div class="stopwatch">
+        <div class="display" id="display">00:00:00</div>
+        <button id="start"><span>Start</span></button>
+        <button id="stop"><span>Stop</span></button>
+        <button id="reset"><span>Reset</span></button>
+    </div>
     <script>
-        let startTime = 0;
-        let elapsedTime = 0;
-        let timerInterval;
+        let timer;
+        let seconds = 0;
+        let isRunning = false;
 
-        function startStopwatch() {
-        startTime = Date.now() - elapsedTime; // Account for paused time
-        timerInterval = setInterval(updateTime, 10); // Update every 10 milliseconds
+        var display = document.getElementById('display');
+        var startButton = document.getElementById('start');
+        var stopButton = document.getElementById('stop');
+        var resetButton = document.getElementById('reset');
+
+        function updateDisplay() {
+            var hours = Math.floor(seconds / 3600).toString();
+            var minutes = Math.floor((seconds % 3600) / 60).toString();
+            var secs = (seconds % 60).toString();
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            secs = secs < 10 ? '0' + secs : secs;
+            display.textContent = `${hours}:${minutes}:${secs}`;
         }
-
-        function pauseStopwatch() {
-        clearInterval(timerInterval);
-        elapsedTime = Date.now() - startTime;
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timer = setInterval(function(){
+                seconds++;
+                updateDisplay();
+            }, 1000);
         }
-
-        function resetStopwatch() {
-        clearInterval(timerInterval);
-        startTime = 0;
-        elapsedTime = 0;
-        updateTime(); // Reset the display
+        function stopTimer() {
+            if (!isRunning) return;
+            isRunning = false;
+            clearInterval(timer);
         }
-
-        function updateTime() {
-        const currentTime = Date.now() - startTime;
-        const formattedTime = formatTime(currentTime);
-        document.getElementById("stopwatch").textContent = formattedTime;
+        function resetTimer() {
+            stopTimer();
+            seconds = 0;
+            updateDisplay();
         }
-
-        function formatTime(milliseconds) {
-        const totalSeconds = Math.floor(milliseconds / 1000);
-        const seconds = totalSeconds % 60;
-        const minutes = Math.floor(totalSeconds / 60) % 60;
-        const hours = Math.floor(totalSeconds / 3600);
-
-        const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-        return formattedTime;
-        }
-
-        function pad(number) {
-        return (number < 10 ? "0" : "") + number;
-        }
-
-        // Initial display
-        updateTime(); 
+        startButton.addEventListener('click', startTimer);
+        stopButton.addEventListener('click', stopTimer);
+        resetButton.addEventListener('click', resetTimer);
     </script>
 </body>
 </html>
